@@ -16,7 +16,7 @@ const compress = async () => {
     
     await pipeline(source, gzip, destination, (err) => {
       if (err) {
-        console.error('An error occurred:', err);
+        console.error('Compress operation failed', err);
         process.exitCode = 1;
       }
     });
