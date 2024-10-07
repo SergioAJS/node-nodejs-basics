@@ -12,8 +12,6 @@ const write = async () => {
         const filePath = path.join(__dirname, 'files', '/', 'fileToWrite.txt');
         const writeableStream = createWriteStream(filePath);
 
-        await writeFile(filePath, '');
-
         process.stdin.on("data", data => {
             writeableStream.write(`${data}`);
         })
