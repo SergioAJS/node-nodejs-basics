@@ -1,10 +1,17 @@
+import path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { access, constants, unlink } from 'node:fs';
 
 const remove = async () => {
-    access('src/fs/files/fileToRemove.txt', constants.F_OK, isNotExist => {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const filePath = path.join(__dirname, 'files', '/', 'fileToRemove.txt');
+
+    await access(filePath, constants.F_OK, async isNotExist => {
         isNotExist ?
         console.error('FS operation failed') :
-        unlink('src/fs/files/fileToRemove.txt', err => {
+        await unlink(filePath, err => {
             if (err) throw err;
         })
     })

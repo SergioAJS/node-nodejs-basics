@@ -1,7 +1,14 @@
+import path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { open, close, writeFile } from 'node:fs';
 
 const create = async () => {
-  open('src/fs/files/fresh.txt', 'wx', (err, fd) => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  const filePath = path.join(__dirname, 'files', '/', 'fresh.txt');
+
+  await open(filePath, 'wx', (err, fd) => {
     if (err) {
       if (err.code === 'EEXIST') {
         console.error('FS operation failed');
@@ -12,7 +19,7 @@ const create = async () => {
     }
   
     try {
-      writeFile('src/fs/files/fresh.txt', 'I am fresh and young', err => {
+      writeFile(filePath, 'I am fresh and young', err => {
         if (err) {
           console.error(err);
         }

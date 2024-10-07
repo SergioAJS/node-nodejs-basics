@@ -1,10 +1,17 @@
+import path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { access, constants, readdir } from 'node:fs';
 
 const list = async () => {
-    access('src/fs/files', constants.F_OK, isNotExist => {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    const filePath = path.join(__dirname, 'files');
+
+    await access(filePath, constants.F_OK, async isNotExist => {
         isNotExist ?
         console.error('FS operation failed') :
-        readdir('src/fs/files', (err, files) => {
+        await readdir(filePath, (err, files) => {
             if (err) {
                 console.error(err);
                 return;
