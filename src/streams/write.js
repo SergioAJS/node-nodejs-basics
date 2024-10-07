@@ -2,7 +2,6 @@ import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { createWriteStream } from 'node:fs';
-import { writeFile } from 'node:fs/promises';
 import process from 'node:process';
 
 const write = async () => {
